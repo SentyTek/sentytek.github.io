@@ -29,3 +29,10 @@ const { title, description, image, articleDate, showTags } = Astro.props
 		</style>
 	</body>
 </html>
+<script>
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll('video').forEach((video) => {
+			video.load() // Reload the video to ensure it plays on page navigation
+		})
+	})
+</script>
