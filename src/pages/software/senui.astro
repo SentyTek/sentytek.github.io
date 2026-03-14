@@ -12,7 +12,7 @@ const SITE_TITLE = 'SenUI'
 	<div>
 		<h1 class='title text-6xl font-bold'>{SITE_TITLE}</h1>
 		<h2 class='text-3xl font-medium mt-4 mb-10'>A Revolutionary new UI framework for Stormworks</h2>
-		<video width='100%' height='auto' autoplay muted loop>
+		<video width='100%' height='auto' autoplay muted loop preload="metadata" key={Astro.url.pathname}>
 			<source src='/videos/senui/1.mp4' type='video/mp4' />
 			Your browser does not support the video tag.
 		</video>

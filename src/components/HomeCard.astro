@@ -14,13 +14,17 @@ const isVideo = !!heroVideo
 			{
 				isVideo ? (
 					<video
-						src={heroVideo}
 						autoplay
 						muted
 						loop
 						playsinline
 						class='h-full w-full object-cover object-center scale-[100%] hover:scale-[101%] transition-all duration-200'
-					/>
+						preload="metadata"
+						key={Astro.url.pathname}
+					>
+						<source src={heroVideo} type='video/mp4' />
+						Your browser does not support the video tag.
+					</video>
 				) : (
 					<CustomImage
 						imagePath={heroImage}

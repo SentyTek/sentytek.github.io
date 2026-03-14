@@ -13,7 +13,7 @@ const SITE_TITLE = 'SWRT 11'
 		<section
 			class='relative w-screen h-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden'
 		>
-			<video autoplay loop muted playsinline class='absolute inset-0 h-auto w-full object-cover'>
+			<video autoplay loop muted playsinline class='absolute inset-0 h-auto w-full object-cover' preload="metadata" key={Astro.url.pathname}>
 				<source src='/videos/swrt/couch-launch.mp4' type='video/mp4' />
 				Your browser does not support the video tag.
 			</video>
