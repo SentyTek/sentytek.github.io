@@ -1,5 +1,6 @@
 interface SiteConfig {
 	site: string
+	base: string
 	author: string
 	title: string
 	description: string
@@ -10,7 +11,8 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://sentytek.github.io/sentytek/', // Write here your website url
+	site: 'https://sentytek.github.io', // Write here your website url
+	base: '/sentytek', // Base name for the project. For example, if your website is https://example.com/my-blog/, then the base should be /my-blog/
 	author: 'SentyTek', // Site author
 	title: 'SentyTek', // Site title.
 	description:
