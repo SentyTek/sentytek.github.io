@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets'
+import CustomImage from '@/components/CustomImage'
 import FormattedDate from '@/components/FormattedDate'
 import ArrowUp from '@/components/icons/ArrowUp'
 
@@ -22,13 +22,12 @@ const isVideo = !!heroVideo
 						class='h-full w-full object-cover object-center scale-[100%] hover:scale-[101%] transition-all duration-200'
 					/>
 				) : (
-					<Image
-						src={heroImage}
+					<CustomImage
+						imagePath={heroImage}
 						width={1920}
 						height={1080}
-						format='webp'
 						class='h-full w-full object-cover object-center scale-[100%] hover:scale-[101%] transition-all duration-200'
-						alt={`img of ${title}`}
+						altText={`img of ${title}`}
 					/>
 				)
 			}
