@@ -1,0 +1,53 @@
+---
+import HomeCard from '@/components/HomeCard'
+import TitlePage from '@/components/TitlePage'
+import BaseLayout from '@/layouts/BaseLayout'
+import { siteConfig } from '@/site-config'
+---
+
+<BaseLayout title='Home'>
+	<div>
+		<HomeCard
+			title='SentyTek Aita'
+			description='A brand new car, in a brand new era.'
+			heroVideo='/src/assets/video/aita-hero-loop.mp4'
+			slug='stormworks/aita'
+		/>
+		<HomeCard
+			title='Syngine: XML and Chill'
+			description='Syngine has gained new XML features.'
+			heroImage='/src/assets/images/syngine.jpg'
+			slug='post/syngine/10-xml'
+		/>
+		<HomeCard
+			title='Peregrine'
+			description='For those who Drive'
+			heroImage='/src/assets/images/stormworks/peregrine/hero.jpg'
+			slug='stormworks/peregrine'
+		/>
+		<HomeCard
+			title='SWRT 11'
+			description='The latest and greatest in the SWRT program, reaching new heights in performance and reusability.'
+			heroImage='/src/assets/images/stormworks/swrt/hero.jpg'
+			slug='stormworks/swrt-11'
+		/>
+	</div>
+</BaseLayout>
+
+<script>
+	import { animate } from 'motion'
+	const showAnimations = localStorage.getItem('animations') === 'true'
+
+	if (showAnimations) {
+		animate(
+			'.title',
+			{ y: [80, 0], opacity: [0, 1] },
+			{
+				duration: 2.5,
+				opacity: { duration: 3 },
+
+				offset: [0, 0.55, 0.75]
+			}
+		)
+	}
+</script>
