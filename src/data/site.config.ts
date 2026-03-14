@@ -10,7 +10,7 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://sentytek.github.io/', // Write here your website url
+	site: 'https://sentytek.github.io/sentytek/', // Write here your website url
 	author: 'SentyTek', // Site author
 	title: 'SentyTek', // Site title.
 	description:
