@@ -3,14 +3,14 @@ import CustomImage from '@/components/CustomImage'
 import FormattedDate from '@/components/FormattedDate'
 import ArrowUp from '@/components/icons/ArrowUp'
 
-const { title, description, heroImage, heroVideo, slug } = Astro.props
+const { title, description, heroImage, heroVideo, slug, prefetch = true } = Astro.props
 
 const isVideo = !!heroVideo
 ---
 
 <article class='group mb-10 bg-gray-300 dark:bg-slate-900 w-screen ml-[calc(50%-50vw)]'>
 	<div class='relative overflow-hidden w-full h-[70vh]'>
-		<a class='block h-full w-full' href={`/${slug}/`}>
+		<a class='block h-full w-full' href={`/${slug}/`} {...(prefetch ? { 'data-astro-prefetch': true } : {})}>
 			{
 				isVideo ? (
 					<video
@@ -54,6 +54,7 @@ const isVideo = !!heroVideo
 		<footer class='flex justify-between items-center'>
 			<a
 				href={`/${slug}/`}
+				{...(prefetch ? { 'data-astro-prefetch': true } : {})}
 				class='flex justify-center items-center dark:text-white rounded-full hover:translate-x-1 transition-transform duration-150 ease-in-out font-semibold gap-1 group'
 				aria-label={`go to ${title}`}
 			>

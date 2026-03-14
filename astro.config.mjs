@@ -32,5 +32,6 @@ export default defineConfig({
 			destinationDir: "./dist"
 		}),
 		tailwind()
-	]
+	],
+	prefetch: false
 })
