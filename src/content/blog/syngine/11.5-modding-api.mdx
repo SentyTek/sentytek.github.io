@@ -1,0 +1,69 @@
+---
+title: Syngine Modding SDK
+heroImage: ../../../assets/images/software/syngine/Syngine_Logo_Banner_Rounded.png
+description: Modding games is an essential part of Syngine
+category: Syngine
+pubDate: April 21, 2026
+tags: ['Syngine', 'Software', 'Bakerman']
+---
+
+Yesterday we released the source code for Syngine, our game engine we've been developing as part of Project Bakerman. Today we announce a component of Syngine designed to help the games designed with it have a long life: Modding
+
+Syngine will have a modding kit. Using the same tools that game developers use to build their levels, assets, write shaders, and author lua, modders will be able to do all the same things to games that developers can do, if allowed. Syngine is built from the ground up to allow modding of game components and code.
+
+TL;DR: Syngine is going to provide a unified sandboxed extension pipeline for assets, scripting, hooks, and content authoring, the same pipeline that myself and the other SentyTek developers use.
+
+As of now, Syngine supports modding of game assets and shaders. It also supports modding via Lua scripts (with library and `require()` support!). In the future, mods will be converted to mod packages, containing an XML "definition" file, all the assets for the mod, and all the code required for the mod. Mods will be required to be authored in Syngine SDK to be valid to prevent malware.
+```
+mods/
+    coolmod/coolmod.mod
+        init.lua (Other Lua files can be `require()` in)
+        mod.xml
+            assets/
+            meshes/
+            textures/
+            audio/
+            etc
+```
+An example of Lua scripting as of now is
+```lua
+local go = scene.createGameObject("object");
+local rigidbodyParams = {
+    mass = 0.0, -- Highly recommended to stay at 0 to let Jolt figure it out. Don't have to, of course.
+    friction = 0.7, -- 0-1
+    restitution = 0.1, -- 0-1
+    shape = "box",
+    shapeParameters = {0.5, 0.5, 0.5}, -- 1 meter cube
+    -- optional
+    -- motionType = 0,
+    -- layer = 1
+}
+go:AddComponent("Rigidbody", rigidbodyParams)
+```
+This is very subject to change.
+
+In the future, Syngine will also add in what we call Game Hooks. Game Hooks will allow functionality similar to Unity's Harmony Modding or Minecraft's Mixins/Event Bus, being able to hook into existing game and engine functions and override their behavior. The engine will intentionally expose extension points instead of needing modders to reverse engineer the game's bytecode. Mods will be able to run code before or after game code execution, or override it completely. For example:
+```cpp
+void DamagePlayer(int dmg) {
+auto ctx = DamageContext(dmg);
+
+mods.RunPre("DamagePlayer", ctx);
+
+if (!ctx.cancelled) {
+    if (!mods.RunOverride("DamagePlayer", ctx)) {
+        DefaultDamagePlayer(ctx);
+    }
+}
+
+mods.RunPost("DamagePlayer", ctx);
+}
+```
+```lua
+function AfterDamagePlayer(dmg)
+    print("Player took " .. dmg .. " damage!")
+end
+```
+This is also very subject to change and has not been implemented yet.
+
+
+A custom level editor will also allow modders to view game levels and build their own, being able to test complete mod packages in real time before exporting them to the actual game. Of course, everything during engine development will need to be driven by player feedback, modding included. These are just some of the ways we hope to make an intentionally well moddable engine with Syngine.
