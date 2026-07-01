@@ -11,8 +11,6 @@ dist/
 node_modules/
 .vscode/
 
-tina-lock.json
-
 # logs
 npm-debug.log*
 yarn-debug.log*
