@@ -1,0 +1,818 @@
+---
+import StickyHeader from '@/components/StickyHeader'
+import '../../styles/configurator.css'
+import BaseLayout from '@/layouts/BaseLayout'
+
+const configImages = import.meta.glob<{ default: { src: string } }>('../../assets/images/stormworks/aita/config/*.{png,jpg,jpeg}', { eager: true })
+
+const getImg = (name: string) => configImages[`../../assets/images/stormworks/aita/config/${name}`]?.default?.src || ''
+const fallback = getImg('base-1.png')
+
+const SITE_TITLE = 'Configure Aita'
+
+const configuratorData = {
+  "models": [
+    {
+      "id": "aita",
+      "name": "Aita",
+      "tagline": "Power Player",
+      "description": "Dual-motor AWD with SenCar 6 and all the daily essentials. Roughly 120km of range.",
+      "price": 40000,
+      "image": getImg('base-1.png') || fallback,
+	  "range": 120
+    },
+    {
+      "id": "aita-performance",
+      "name": "Aita Performance",
+      "tagline": "Zero to Hero",
+      "description": "More aggressive tuning, launch-focused dynamics, and performance styling. Roughly 75km of range.",
+      "price": 53500,
+      "image": getImg('ultra-red-1.png') || fallback,
+	  "range": 75
+    }
+  ],
+  "finishes": [
+	{
+		"id": "base",
+		"name": "Base Blue",
+		"swatch": "#1c1c38",
+		"price": 0,
+		"image": getImg('base-1.png') || fallback,
+		"image2": getImg('base-2.png') || fallback,
+		"placeholder": false,
+		"requiresModel": "aita"
+	},
+    {
+      "id": "shock-black",
+      "name": "Shock Black",
+      "swatch": "#191a15",
+      "price": 0,
+      "image": getImg('shock-black-1.png') || fallback,
+      "image2": getImg('shock-black-2.png') || fallback,
+      "placeholder": false,
+      "requiresModel": "aita"
+    },
+    {
+      "id": "alberta-white",
+      "name": "Alberta White",
+      "swatch": "#a1a6aa",
+      "price": 0,
+      "image": getImg('alberta-white-1.png') || fallback,
+      "image2": getImg('alberta-white-2.png') || fallback,
+      "placeholder": false,
+      "requiresModel": "aita"
+    },
+    {
+      "id": "too-bright-blue",
+      "name": "Too Bright Blue",
+      "swatch": "#2f72b9",
+      "price": 1200,
+      "image": getImg('too-bright-blue-1.png') || fallback,
+      "image2": getImg('too-bright-blue-2.png') || fallback,
+      "placeholder": true,
+      "requiresModel": "aita"
+    },
+	{
+		"id": "pride",
+		"name": "Pride",
+		"swatch": "linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff)",
+		"price": 1500,
+		"image": getImg('pride-1.png') || fallback,
+		"image2": getImg('pride-2.png') || fallback,
+		"placeholder": true,
+		"requiresModel": "aita"
+	},
+    {
+      "id": "ultra-red",
+      "name": "Ultra Red",
+      "swatch": "#670f11",
+      "price": 0,
+      "image": getImg('ultra-red-1.png') || fallback,
+      "image2": getImg('ultra-red-2.png') || fallback,
+      "placeholder": true,
+      "requiresModel": "aita-performance"
+    },
+    {
+      "id": "camp-orange",
+      "name": "Camp Orange",
+      "swatch": "#8f3014",
+      "price": 1500,
+      "image": getImg('camp-orange-1.png') || fallback,
+      "image2": getImg('camp-orange-2.png') || fallback,
+      "placeholder": true,
+      "requiresModel": "aita-performance"
+    },
+    {
+      "id": "cosmic-purple",
+      "name": "Cosmic Purple",
+      "swatch": "#341a49",
+      "price": 1700,
+      "image": getImg('cosmic-purple-1.png') || fallback,
+      "image2": getImg('cosmic-purple-2.png') || fallback,
+      "placeholder": true,
+      "requiresModel": "aita-performance"
+    }
+  ],
+  "interiors": [
+    {
+      "id": "standard-interior",
+      "name": "Standard Interior",
+      "description": "Cloth seats and plastic trim for a simple, clean cabin.",
+      "price": 0,
+      "image": getImg('standard-interior.jpg') || fallback,
+	  "requiresModel": "aita"
+    },
+    {
+      "id": "premium-interior",
+      "name": "Premium Interior",
+      "description": "Cherry leather seats and brushed aluminum trim for a more luxurious feel.",
+      "price": 1500,
+      "image": getImg('premium-interior.jpg') || fallback,
+	  "rangeDiff": -5,
+    },
+	{
+	  "id": "matte-black-interior",
+	  "name": "Matte Black Interior",
+	  "description": "A blacked out interior for the nerds of the world. Matte black seats and trim for a stealthy look.",
+	  "price": 1950,
+	  "image": getImg('matte-black-interior.jpg') || fallback,
+	  "requiresModel": "aita-performance"
+	}
+  ],
+  "wheels": [
+    {
+      "id": "13-aero",
+      "name": "13in Aero Wheel",
+      "description": "Balanced range and comfort.",
+      "price": 0,
+	  "requiresModel": "aita"
+    },
+    {
+      "id": "15-sport",
+      "name": "15in Sport Wheel",
+      "description": "Optimized for handling and performance.",
+      "price": 1000,
+      "placeholder": true,
+      "requiresModel": "aita",
+	  "rangeDiff": 7
+    },
+	{
+      "id": "15-performance",
+      "name": "15in High Speed Wheel",
+      "description": "Optimized for high-speed stability and performance.",
+      "price": 0,
+      "placeholder": true,
+      "requiresModel": "aita-performance"
+    }
+  ],
+  "packages": [
+    {
+      "id": "autopilot-lite",
+      "name": "Jupiter Radar Autopilot",
+      "description": "Let Aita drive itself with advanced radar-based autopilot.",
+      "price": 6000,
+	  "image": getImg('autopilot-lite.jpg') || fallback,
+	  "rangeDiff": 2
+    },
+	{
+      "id": "dashcam",
+      "name": "Dashcam",
+      "description": "Record your journeys with a high-definition dashcam.",
+      "price": 800,
+	  "image": getImg('dashcam.jpg') || fallback,
+	},
+	{
+      "id": "pro-navigation",
+      "name": "Pro Navigation",
+      "description": "Advanced navigation system with real-time traffic updates and route optimization.",
+      "price": 2000,
+	  "image": getImg('pro-navigation.jpg') || fallback,
+	  "rangeDiff": 2
+	},
+	{
+		"id": "rear-entertainment",
+		"name": "Rear Entertainment",
+		"description": "Keep passengers entertained with rear-seat tic-tac-toe screens and map controls.",
+		"price": 1200,
+		"image": getImg('rear-entertainment.jpg') || fallback,
+		"rangeDiff": -3
+	},
+    {
+      "id": "cupholders",
+      "name": "Cupholders",
+      "description": "Keep your drinks secure with custom cupholders.",
+      "price": 150,
+	  "image": getImg('cup-holders.jpg') || fallback
+    },
+	{
+		"id": "premium-sound",
+		"name": "Premium Sound System",
+		"description": "Experience superior audio quality with a premium sound system.",
+		"price": 2000,
+		"image": getImg('premium-sound.jpg') || fallback,
+		"rangeDiff": -3
+	},
+	{
+		"id": "home-charger",
+		"name": "Home Charger",
+		"description": "Aita Home Charger for convenient and fast charging at home.",
+		"price": 400,
+		"image": getImg('home-charger.jpg') || fallback
+	}
+  ]
+}
+---
+
+<BaseLayout title={SITE_TITLE}>
+	<StickyHeader
+		title='Configure Aita'
+		buyUrl='#reserve'
+		buyLabel='Reserve'
+		buyExternal={false}
+		exploreUrl='#builder'
+		exploreLabel='Build'
+	/>
+
+	<section class='config-shell'>
+		<div class='config-intro'>
+			<p class='eyebrow'>SentyTek Configurator</p>
+			<h1 class='headline'>Build your Aita.</h1>
+			<p class='subhead'>
+				Choose a model, pick your finish, and add options. Your final spec and estimated monthly
+				price appear when you reserve.
+			</p>
+		</div>
+
+		<div id='builder' class='builder-grid'>
+			<div class='preview-panel'>
+				<div class='preview-stage'>
+					<img
+						id='preview-image'
+						src={getImg('base-1.png') || fallback}
+						alt='Preview of the selected Aita configuration'
+						loading='eager'
+					/>
+				</div>
+				<div class='preview-meta'>
+					<p id='preview-title' class='preview-title'>Aita in Midnight Black</p>
+					<p id='preview-note' class='preview-note'>Ignore the silly headlight coloring.</p>
+				</div>
+			</div>
+
+			<aside class='options-panel'>
+				<section class='option-group' data-group='models'>
+					<h2>Model</h2>
+					<div class='option-list card-list'>
+						{
+							configuratorData.models.map((item, index) => (
+								<button
+									type='button'
+									class={`option-card ${index === 0 ? 'is-selected' : ''}`}
+									data-option='models'
+									data-id={item.id}
+								>
+									<p class='option-title'>{item.name}</p>
+									<p class='option-copy'>{item.description}</p>
+									<p class='option-price'>Starting at ${item.price}</p>
+								</button>
+							))
+						}
+					</div>
+				</section>
+
+				<section class='option-group' data-group='finishes'>
+					<h2>Finish</h2>
+					<div class='swatch-list'>
+						{
+							configuratorData.finishes.map((item, index) => (
+								<button
+									type='button'
+									class={`swatch-option ${index === 0 ? 'is-selected' : ''}`}
+									data-option='finishes'
+									data-id={item.id}
+									aria-label={`Select ${item.name}`}
+								>
+									<span class='swatch-chip' style={`background:${item.swatch}`}></span>
+									<span class='swatch-label'>{item.name}</span>
+                                    <span class='swatch-price'>
+                                        {item.price === 0 ? 'Included' : `+$${item.price}`}
+                                    </span>
+								</button>
+							))
+						}
+					</div>
+				</section>
+
+				<section class='option-group' data-group='interiors'>
+					<h2>Interior</h2>
+					<div class='option-list card-list'>
+						{
+							configuratorData.interiors.map((item, index) => (
+								<button
+									type='button'
+									class={`option-card ${index === 0 ? 'is-selected' : ''}`}
+									data-option='interiors'
+									data-id={item.id}
+								>
+									<p class='option-title'>{item.name}</p>
+									<p class='option-copy'>{item.description}</p>
+									<p class='option-price'>
+										{item.price === 0 ? 'Included' : `+$${item.price}`}
+									</p>
+								</button>
+							))
+						}
+					</div>
+				</section>
+
+				<section class='option-group' data-group='wheels'>
+					<h2>Wheels</h2>
+					<div class='option-list card-list'>
+						{
+							configuratorData.wheels.map((item, index) => (
+								<button
+									type='button'
+									class={`option-card ${index === 0 ? 'is-selected' : ''}`}
+									data-option='wheels'
+									data-id={item.id}
+								>
+									<p class='option-title'>{item.name}</p>
+									<p class='option-copy'>{item.description}</p>
+									<p class='option-price'>
+										{item.price === 0 ? 'Included' : `+$${item.price}`}
+									</p>
+								</button>
+							))
+						}
+					</div>
+				</section>
+
+				<section class='option-group' data-group='packages'>
+					<h2>Software Packages</h2>
+					<div class='toggle-list'>
+						{
+							configuratorData.packages.map((item) => (
+								<label class='toggle-option'>
+									<input type='checkbox' data-option='packages' data-id={item.id} />
+									<span>
+										<strong>{item.name}</strong>
+										<small>{item.description}</small>
+									</span>
+									<em>+${item.price}</em>
+								</label>
+							))
+						}
+					</div>
+				</section>
+
+				<section class="pricing-sticky">
+					<h2>Trade-in</h2>
+					<label for="trade-in-value" class="pricing-label">Trade-in your SentyTek vehicle for a discount</label>
+					<select id="trade-select" class="term-select">
+						<option value="0" selected>None</option>
+						<option value="17900">Echolodia 2023</option>
+						<option value="20200">Echolodia TE</option>
+						<option value="14400">Solstice</option>
+						<option value="11100">Peregrine</option>
+						<option value="8750">SenKei [EV]</option>
+						<option value="18135">SWRT 11</option>
+					</select>
+					<div class="trade-in-quality">
+						<label for="trade-in-quality" class="pricing-label">Trade-in Quality</label>
+						<select id="trade-in-quality" class="term-select">
+							<option value="-1.5">Trashed</option>
+							<option value="-0.1">Poor</option>
+							<option value="0" selected>Average</option>
+							<option value="0.1">Good</option>
+							<option value="0.2">Excellent</option>
+						</select>
+					</div>
+				</section>
+
+				<section class="option-group">
+					<h2>Custom License Plate</h2>
+					<div class="license-plate-input">
+						<input type="text" id="license-plate" maxlength="7" placeholder="Enter text" />
+					</div>
+				</section>
+
+				<div class='pricing-sticky' id='pricing-sticky'>
+					<div class='pricing-item'>
+						<p class='pricing-label' id="monthly1">Total Price</p>
+						<p id='total-price-sticky' class='pricing-value'>$55,000</p>
+					</div>
+					<div class='pricing-item'>
+						<label class='pricing-label' for='term-select'>Payment Term</label>
+						<select id='term-select' class='term-select'>
+							<option value='1' selected>Pay in Cash</option>
+							<option value='36'>36 months</option>
+							<option value='48'>48 months</option>
+							<option value='72'>72 months</option>
+						</select>
+					</div>
+					<div class="pricing-item">
+						<label class="pricing-label" for="delivery-location">Delivery Location</label>
+						<select id="delivery-location" class="term-select">
+							<option value="0">Holt Town</option>
+							<option value="4.4">Dean Hall Mining Co.</option>
+							<option value="-5">Atlas Terminal</option>
+							<option value="5.33">Potato Pointe</option>
+							<option value="29">Mass Hole Shaft</option>
+							<option value="1.2">North Harbor</option>
+							<option value="15.9">FJ Warner</option>
+							<option value="4.6">Dreimor</option>
+							<option value="6.7">Lighthouse OB</option>
+							<option value="22.3">Karn Industries</option>
+						</select>
+					</div>
+				</div>
+
+				<section id='reserve' class='reserve-box'>
+					<p class='reserve-label'>Total Price</p>
+					<p id='total-price' class='reserve-price'>$34/mo.</p>
+					<p id="tax-addition" class="reserve-label">Includes tax based on delivery location</p>
+					<button id='reserve-button' type='button' class='reserve-button bg-blue-500'>Reserve</button>
+					<div id='reserve-summary' class='reserve-summary' hidden>
+						<h3>Your Aita Spec</h3>
+						<ul id='reserve-list'></ul>
+						<p class='reserve-footnote'>
+							This is just for fun. We will not be delivering any vehicles, and this is not a real reservation.
+						</p>
+					</div>
+				</section>
+			</aside>
+		</div>
+	</section>
+
+	<script define:vars={{ configuratorData }}>
+		// @ts-nocheck
+		const data = configuratorData
+
+		const state = {
+			models: data.models?.[0]?.id || '',
+			finishes: data.finishes?.[0]?.id || '',
+			interiors: data.interiors?.[0]?.id || '',
+			wheels: data.wheels?.[0]?.id || '',
+			packages: []
+		}
+
+		let currentView = 'exterior-1'
+		let packagePreviewImage = null
+		let packagePreviewTimeout = null
+
+		const currency = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			maximumFractionDigits: 0
+		})
+
+		const previewImage = document.getElementById('preview-image')
+		const previewTitle = document.getElementById('preview-title')
+		const previewNote = document.getElementById('preview-note')
+		const totalPrice = document.getElementById('total-price')
+		const totalPriceSticky = document.getElementById('total-price-sticky')
+		const termSelect = document.getElementById('term-select')
+		const tradeInSelect = document.getElementById('trade-select')
+		const tradeInQualitySelect = document.getElementById('trade-in-quality')
+		const deliveryLocation = document.getElementById('delivery-location')
+		const reserveButton = document.getElementById('reserve-button')
+		const reserveSummary = document.getElementById('reserve-summary')
+		const reserveList = document.getElementById('reserve-list')
+        
+        const monthlyLabel1 = document.getElementById('monthly1')
+
+		const findItem = (group, id) => data[group]?.find((item) => item.id === id)
+
+		const getTotalPrice = () => {
+			const modelPrice = findItem('models', state.models)?.price || 0
+			const finishPrice = findItem('finishes', state.finishes)?.price || 0
+			const interiorPrice = findItem('interiors', state.interiors)?.price || 0
+			const wheelPrice = findItem('wheels', state.wheels)?.price || 0
+			const packagePrice = state.packages.reduce((sum, id) => {
+				const item = findItem('packages', id)
+				return sum + (item?.price || 0)
+			}, 0)
+
+			const subtotal = modelPrice + finishPrice + interiorPrice + wheelPrice + packagePrice
+			const taxRate = Number(deliveryLocation?.value || 0) / 100
+			const tradeInValue = getTradeInValue()
+
+			return Math.round(subtotal * (1 + taxRate) - tradeInValue)
+		}
+
+		const getTermMonths = () => {
+			const value = Number(termSelect?.value || 24)
+			return Number.isFinite(value) && value > 0 ? value : 24
+		}
+
+		const getMonthlyPrice = () => {
+			return Math.round(getTotalPrice() / getTermMonths())
+		}
+
+		const refreshPreview = () => {
+			if (packagePreviewImage && previewImage) {
+				previewImage.src = packagePreviewImage
+				return
+			}
+
+			const model = findItem('models', state.models)
+			const finish = findItem('finishes', state.finishes)
+			const interior = findItem('interiors', state.interiors)
+
+			if (previewImage) {
+				if (currentView === 'interior' && interior?.image) {
+					previewImage.src = interior.image
+				} else if (currentView === 'exterior-2' && finish?.image2) {
+					previewImage.src = finish.image2
+				} else if (finish?.image) {
+					previewImage.src = finish.image
+				}
+			}
+
+			if (previewTitle) {
+				if (currentView === 'interior') {
+					previewTitle.textContent = `${interior?.name || 'Interior View'}`
+				} else {
+					previewTitle.textContent = `${model?.name || 'Aita'} in ${finish?.name || 'Default Finish'}`
+				}
+			}
+
+			if (previewNote) {
+				if (currentView === 'interior') {
+					previewNote.textContent = 'View of the cabin and controls.'
+				} else {
+					previewNote.textContent = finish?.placeholder
+						? 'Ignore the placeholder finish coloring.'
+						: 'Ignore the silly headlight coloring.'
+				}
+			}
+		}
+
+		const refreshPrice = () => {
+			const total = getTotalPrice()
+			const monthly = getMonthlyPrice()
+
+			if (totalPrice) {
+                totalPrice.textContent = currency.format(total)
+			}
+
+			if (totalPriceSticky) {
+                if (getTermMonths() === 1) {
+                    monthlyLabel1.textContent = 'Total Price'
+                    totalPriceSticky.textContent = currency.format(total)
+                } else {
+                    monthlyLabel1.textContent = 'Estimated Monthly'
+                    totalPriceSticky.textContent = `${currency.format(monthly)}/mo.`
+                }
+			}
+		}
+
+		const refreshSelectionUI = (group, selectedId) => {
+			document.querySelectorAll(`button[data-option='${group}']`).forEach((node) => {
+				node.classList.toggle('is-selected', node.dataset.id === selectedId)
+			})
+		}
+
+		const refreshAvailability = () => {
+			const groups = ['finishes', 'interiors', 'wheels', 'packages']
+			groups.forEach((group) => {
+				const items = data[group]
+				if (!items) return
+
+				items.forEach((item) => {
+					const isRestricted = item.requiresModel && item.requiresModel !== state.models
+					const selector = group === 'packages' 
+						? `input[data-option='${group}'][data-id='${item.id}']`
+						: `button[data-option='${group}'][data-id='${item.id}']`
+					
+					const element = document.querySelector(selector)
+					if (element) {
+						// For buttons, hide the button. For packages, hide the label container.
+						const target = group === 'packages' ? element.closest('.toggle-option') : element
+						if (target) {
+							target.hidden = isRestricted
+						}
+
+						// If the selected item is now restricted, reset it to the first available item
+						if (isRestricted) {
+							if (group === 'packages') {
+								if (state.packages.includes(item.id)) {
+									state.packages = state.packages.filter((id) => id !== item.id)
+									element.checked = false
+								}
+							} else if (state[group] === item.id) {
+								const firstAvailable = items.find((i) => !i.requiresModel || i.requiresModel === state.models)
+								state[group] = firstAvailable ? firstAvailable.id : ''
+								refreshSelectionUI(group, state[group])
+							}
+						}
+					}
+				})
+			})
+		}
+
+		const getEstimatedRange = () => {
+			const model = findItem('models', state.models)
+			const interior = findItem('interiors', state.interiors)
+			const packages = state.packages.map((id) => findItem('packages', id)).filter(Boolean)
+
+			let range = model?.range || 0
+
+			if (interior?.rangeDiff) {
+				actRangeDiff = range * (interior.rangeDiff/100)
+				range += actRangeDiff
+			}
+
+			packages.forEach((pkg) => {
+				if (pkg.rangeDiff) {
+					actRangeDiff = range * (pkg.rangeDiff/100)
+					range += actRangeDiff
+				}
+			})
+
+			return Math.max(Math.floor(range), 0)
+		}
+
+		const getTradeInValue = () => {
+			const tradeSelect = document.getElementById('trade-select')
+			const qualitySelect = document.getElementById('trade-in-quality')
+
+			if (!tradeSelect || !qualitySelect) return 0
+
+			const baseValue = Number(tradeSelect.value) || 0
+			const qualityMultiplier = Number(qualitySelect.value) || 0
+
+			return Math.round(baseValue * (1 + qualityMultiplier))
+		}
+
+		const preloadImages = () => {
+			const images = []
+			// Collect all image URLs from configuratorData
+			const categories = ['models', 'finishes', 'interiors', 'packages']
+			categories.forEach(cat => {
+				data[cat]?.forEach(item => {
+					if (item.image) images.push(item.image)
+					if (item.image2) images.push(item.image2)
+				})
+			})
+
+			// Preload each image
+			images.forEach(src => {
+				const img = new Image()
+				img.src = src
+			})
+		}
+
+		document.querySelectorAll("button[data-option='models']").forEach((button) => {
+			button.addEventListener('click', () => {
+				state.models = button.dataset.id || ''
+				refreshSelectionUI('models', state.models)
+				refreshAvailability()
+				refreshPreview()
+				refreshPrice()
+			})
+		})
+
+		document.querySelectorAll("button[data-option='finishes']").forEach((button) => {
+			button.addEventListener('click', () => {
+				state.finishes = button.dataset.id || ''
+				refreshSelectionUI('finishes', state.finishes)
+				refreshPreview()
+				refreshPrice()
+			})
+		})
+
+		document.querySelectorAll("button[data-option='interiors']").forEach((button) => {
+			button.addEventListener('click', () => {
+				state.interiors = button.dataset.id || ''
+				refreshSelectionUI('interiors', state.interiors)
+				refreshPreview()
+				refreshPrice()
+			})
+		})
+
+		document.querySelectorAll("button[data-option='wheels']").forEach((button) => {
+			button.addEventListener('click', () => {
+				state.wheels = button.dataset.id || ''
+				refreshSelectionUI('wheels', state.wheels)
+				refreshPrice()
+			})
+		})
+
+		document.querySelectorAll("input[data-option='packages']").forEach((checkbox) => {
+			checkbox.addEventListener('change', () => {
+				const id = checkbox.dataset.id
+				if (!id) {
+					return
+				}
+
+				if (checkbox.checked) {
+					if (!state.packages.includes(id)) {
+						state.packages.push(id)
+					}
+				} else {
+					state.packages = state.packages.filter((item) => item !== id)
+				}
+
+				refreshPrice()
+			})
+
+			const label = checkbox.closest('.toggle-option')
+			if (label) {
+				label.addEventListener('mouseenter', () => {
+					const id = checkbox.dataset.id
+					const pkg = findItem('packages', id)
+					if (pkg?.image) {
+						packagePreviewImage = pkg.image
+						refreshPreview()
+						if (packagePreviewTimeout) clearTimeout(packagePreviewTimeout)
+					}
+				})
+
+				label.addEventListener('mouseleave', () => {
+					packagePreviewImage = null
+					refreshPreview()
+				})
+			}
+		})
+
+		if (termSelect) {
+			termSelect.addEventListener('change', refreshPrice)
+		}
+
+		if (tradeInSelect) {
+			tradeInSelect.addEventListener('change', refreshPrice)
+		}
+
+		if (tradeInQualitySelect) {
+			tradeInQualitySelect.addEventListener('change', refreshPrice)
+		}
+
+		if (deliveryLocation) {
+			deliveryLocation.addEventListener('change', refreshPrice)
+		}
+
+		if (reserveButton && reserveSummary && reserveList) {
+			reserveButton.addEventListener('click', () => {
+				const model = findItem('models', state.models)
+				const finish = findItem('finishes', state.finishes)
+				const interior = findItem('interiors', state.interiors)
+				const wheel = findItem('wheels', state.wheels)
+				const selectedPackages = state.packages
+					.map((id) => findItem('packages', id))
+					.filter(Boolean)
+
+				const lines = [
+					`Model: ${model?.name || 'Aita'}`,
+					`Finish: ${finish?.name || 'Midnight Black'}`,
+					`Interior: ${interior?.name || 'Graphite TechWeave'}`,
+					`Wheels: ${wheel?.name || '19in Aero Wheel'}`,
+					`Packages: ${selectedPackages.length > 0 ? selectedPackages.map((item) => item.name).join(', ') : 'None'}`,
+					`Delivery Location: ${deliveryLocation?.options[deliveryLocation.selectedIndex]?.text || 'Unknown'} (${deliveryLocation?.value || 0}% Tax)`,
+					`Total Price: ${currency.format(getTotalPrice())}`,
+					`Trade-In Value: ${currency.format(getTradeInValue())}`,
+					`Payment Term: ${getTermMonths()} months`,
+					'Custom License Plate: ' + (document.getElementById('license-plate')?.value.toUpperCase() || 'None'),
+					`Estimated Range: ${getEstimatedRange()} kilometers`,
+					`Estimated Monthly: ${currency.format(getMonthlyPrice())}/mo.`
+				]
+
+				reserveList.innerHTML = lines.map((line) => `<li>${line}</li>`).join('')
+				reserveSummary.hidden = false
+				reserveSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+			})
+		}
+
+		refreshAvailability()
+		refreshPreview()
+		refreshPrice()
+		preloadImages()
+
+		// Scroll-based view switching
+		const observerOptions = {
+			root: null,
+			rootMargin: '-30% 0px -30% 0px',
+			threshold: 0
+		}
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const group = entry.target.dataset.group
+					if (group === 'interiors') {
+						currentView = 'interior'
+					} else if (group === 'wheels' || group === 'packages') {
+						currentView = 'exterior-2'
+					} else if (group === 'models' || group === 'finishes') {
+						currentView = 'exterior-1'
+					}
+					refreshPreview()
+				}
+			})
+		}, observerOptions)
+
+		document.querySelectorAll('.option-group').forEach((section) => {
+			observer.observe(section)
+		})
+	</script>
+</BaseLayout>

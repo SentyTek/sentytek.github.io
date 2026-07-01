@@ -7,14 +7,14 @@ import ProviderAnimations from '@/components/ProviderAnimations'
 const { title, description, image, articleDate, showTags } = Astro.props
 ---
 
-<html lang='en' class='scroll-smooth overflow-x-hidden'>
+<html lang='en' class='scroll-smooth overflow-x-clip'>
 	<head>
 		<BaseHead title={title} description={description} ogImage={image} articleDate={articleDate} />
 		<ProviderTheme />
 		<ProviderAnimations />
 	</head>
 
-	<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white overflow-x-hidden'>
+	<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white overflow-x-clip'>
 		<main
 			class='px-5 sm:mx-auto sm:max-w-2xl sm:px-8 lg:px-0 antialiased md:max-w-6xl grid grid-cols-1 gap-6 mt-4'
 		>

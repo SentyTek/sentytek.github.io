@@ -13,11 +13,11 @@ const SITE_TITLE = 'Aita'
 		title='Aita'
 		buyUrl='https://steamcommunity.com/sharedfiles/filedetails/?id=3611288035'
 		buyLabel='Subscribe on the Workshop'
-		exploreLabel='Tech Specs'
-		exploreUrl='#specs'
+		exploreLabel='Configure Yours'
+		exploreUrl='./../stormworks/aitaconfig'
 	/>
 	<div>
-		<h1 class='title text-6xl font-bold'>{SITE_TITLE}</h1>
+		<h1 class='title text-6xl font-bold'>Aita & Aita Performance</h1>
 		<h2 class='text-3xl font-medium mt-4 mb-10'>Power Player</h2>
 		<CustomImage
 			imagePath='/src/assets/blog/auto/aita-outnow/aita-hero.jpg'
@@ -25,10 +25,17 @@ const SITE_TITLE = 'Aita'
 		/>
 		<div class='flex justify-center mt-10'>
 			<div
-				class='w-fit px-4 py-1.5 text-sm rounded-full bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors'
+				class='w-fit px-4 py-1.5 text-sm rounded-full bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors mr-4'
 			>
 				<a href='https://steamcommunity.com/sharedfiles/filedetails/?id=3611288035' target='_blank'
 					>Subscribe on the Workshop</a
+				>
+			</div>
+			<div
+				class='w-fit px-4 py-1.5 text-sm rounded-full bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors'
+			>
+				<a href='./../stormworks/aitaconfig'
+					>Configure Yours</a
 				>
 			</div>
 		</div>
@@ -72,9 +79,9 @@ const SITE_TITLE = 'Aita'
 				<div class='rounded-3xl bg-gray-300 dark:bg-gray-800 p-8 text-center'>
 					<CustomImage
 						imagePath='/src/assets/blog/auto/aita-outnow/aita_senconnect.jpg'
-						altText='SenConnect 1.2 features'
+						altText='SenConnect 2 on the Dashboard of Aita'
 					/>
-					<h4 class='text-xl font-bold mb-2'>SenConnect 1.2</h4>
+					<h4 class='text-xl font-bold mb-2'>SenConnect 2</h4>
 					<p class='text-gray-600 dark:text-gray-300'>
 						Stay connected to other SentyTek vehicles in real time — perfect for convoys, caravans,
 						and parties.
@@ -116,11 +123,43 @@ const SITE_TITLE = 'Aita'
 			<p>
 				Step in and everything feels similarly modern but refined, built around our next generation
 				of software: SenCar 6. The EV specific dashboard presents only what matters - speed, range,
-				efficiency, and power - nothing distracting. SenConnect keeps you connected to other
+				efficiency, and power - nothing distracting. SenConnect 2 keeps you connected to other
 				SentyTek vehicles in real time, perfect for convoys or parties. Rear seat passengers get a
 				brand new multiplayer tic-tac-toe experience, making long trips short. Aita seats 5, the
 				rear seats fold down, and there's a map.
 			</p>
+
+			<div id="performance"></div>
+			<CardCarousel>
+				<div class='rounded-3xl bg-gray-300 dark:bg-gray-800 p-8 text-center'>
+					<h1>Aita Performance</h1>
+					<ImageCarousel
+						images={[
+							{ path: '/src/assets/images/stormworks/aita/perf-hero.jpg', alt: 'Aita Performance' },
+							{ path: '/src/assets/images/stormworks/aita/perf-int.jpg', alt: 'Aita Performance\'s interior with SenCar 6' },
+							{ path: '/src/assets/images/stormworks/aita/perf-rear.jpg', alt: 'Aita Performance\'s rear view' },
+							{ path: '/src/assets/images/stormworks/aita/perf-rear-2.jpg', alt: 'Aita Performance\'s rear view' },
+							{ path: '/src/assets/images/stormworks/aita/perf-int-rear.jpg', alt: 'Aita Performance\'s back seats' },
+							{ path: '/src/assets/images/stormworks/aita/perf-trunk.jpg', alt: 'Aita Performance\'s trunk' }
+						]},
+					/>
+					<p>
+						Aita Performance is the ultimate edition of Aita, completely kitted out for speed and raw performance. It has grippier wheels, double the motors, and much faster acceleration.
+					</p>
+					<p>
+						It has a new color (Ultra Red), sportier looks, and much heavier for a more planted feel. With a record setting 0-60 time of just 1.86 seconds and a top speed of 165 mph, Aita Performance is the fastest SentyTek car ever made.
+					</p>
+					<div class='flex justify-center mt-10'>
+						<div
+							class='w-fit px-4 py-1.5 text-sm rounded-full bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors mr-4'
+						>
+							<a href='https://steamcommunity.com/sharedfiles/filedetails/?id=3712693151' target='_blank'
+								>Subscribe on the Workshop</a
+							>
+						</div>
+					</div>
+				</div>
+			</CardCarousel>
 
 			<h2>Power</h2>
 
@@ -223,7 +262,7 @@ const SITE_TITLE = 'Aita'
 					</tr>
 					<tr>
 						<td>OS</td>
-						<td>SenCar 6 with SenConnect 1.2</td>
+						<td>SenCar 6 with SenConnect 2</td>
 					</tr>
 					<tr>
 						<td>ECU</td>
